@@ -10,7 +10,6 @@ var bodyParser=require('body-parser');
 // Liaison entre le serveur et l'app //
 app.use(express.static(__dirname + "/public"));
 
-
 // Port du serveur //
 app.listen(3000);
 

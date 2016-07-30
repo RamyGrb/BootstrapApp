@@ -1,6 +1,6 @@
-function AppCtrl($scope) {
+function AppCtrl($scope, $http) {
     
-    // contrôle //
+    // Contrôle //
     console.log("Controller AppCtrl connected to the view");
     
     order1 = {
