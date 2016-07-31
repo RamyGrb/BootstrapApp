@@ -6,7 +6,7 @@ function AppCtrl($scope, $http) {
     // Récupération de la database //
     $http.get('/orderlist').success(function(response) { 
         // Contrôle //
-        console.log("Le controlleur AppCtrl a bien reçu la database du serveur");
+        console.log("Controller AppCtrl correctly received the database from the server");
         $scope.orderlist = response;
     
     });

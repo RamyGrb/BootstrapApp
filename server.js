@@ -3,7 +3,7 @@ var express=require('express');
 var app = express();
 
 var mongojs=require('mongojs');
-var db=mongojs('contactlist', ['contactlist']);
+var db=mongojs('orderlist', ['orderlist']);
 
 var bodyParser=require('body-parser');
 
@@ -14,26 +14,18 @@ app.use(express.static(__dirname + "/public"));
 app.get('/orderlist', function(req,res) {
     
     // Contrôle //
-    console.log("La database du serveur a été envoyée au controlleur AppCtrl");
+    console.log("Server GET request sended to the controller AppCtrl");
     
-    order1 = {
-        number : '#534',
-        drinks : '1 Amine Mojito'
-    };
-    
-    order2 = {
-        number : '#681',
-        drinks : '2 Vodkaaris'
-    };
-    
-    order3 = {
-        number : '#280',
-        drinks : '1 Smirohff'
-    };
-    
-    var orderlist = [order1, order2, order3];
-    
-    res.json(orderlist);
+    // Connexion à Mongodb, docs = la database récupérée //
+    db.orderlist.find(function(err,docs){
+       
+        // Contrôle //
+        console.log("Database sended to the controller AppCtrl :");
+        console.log(docs);
+        
+        // Envoi de la database au controleur //
+        res.json(docs);
+    });
 });
 
 // Port du serveur //
