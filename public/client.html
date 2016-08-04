@@ -9,24 +9,23 @@
 <!-- Dépendance AngularJS -->    
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
     
-    <title>Vue du Barman</title>
+    <title>Vue du Client</title>
 </head>
     
 <body>
-     
+    
     <!-- Liaison du controleur -->    
     <script src="controllers/controller.js"></script>
-    
+        
     <!-- Tableau -->    
-    <div class="container" ng-controller="BarCtrl">
-        <h1>Commandes</h1>
-        <a ng-href="/client">Accéder au coté client</a>
+    <div class="container" ng-controller="ClientCtrl">
+        <h1>A la Carte</h1>
         <table class="table">
 
             <!-- Header tableau -->    
             <thead>
                 <tr>
-                    <th>Numero</th>
+                    <th>Nom</th>
                     <th>Contenu</th>
                     <th>Action</th>
                     <th></th>
@@ -35,9 +34,9 @@
             
             <!-- Body tableau -->    
             <tbody>
-                <tr ng-repeat="order in orderlist">
-                    <td>{{order.number}}</td>
-                    <td>{{order.drinks}}</td> 
+                <tr ng-repeat="drink in drinklist">
+                    <td>{{drink.name}}</td>
+                    <td>{{drink.content}}</td> 
                 </tr>
             </tbody>
         </table>
