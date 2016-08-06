@@ -18,6 +18,8 @@
                 <tr ng-repeat="order in orderlist">
                     <td>{{order.number}}</td>
                     <td>{{order.drinks}}</td> 
+                    <td><button type="button" class="btn btn-Warning">Envoyer</button></td>
+                    <td><button type="button" class="btn btn-Success" disabled="disabled">Terminer</button></td>
                 </tr>
             </tbody>
         </table>
