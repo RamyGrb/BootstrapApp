@@ -1,46 +1,36 @@
 <!DOCTYPE>
-<html ng-app>
+<html ng-app="billyapp">
 <head>
 
-<!-- Dépendance Bootstrap -->    
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Dépendance Bootstrap -->    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-<!-- Dépendance AngularJS -->    
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+    <!-- Dépendance AngularJS -->    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
     
-    <title>Vue du Barman</title>
+    <!-- Dépendance de ngRoute -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular-route.js"></script>
+    
+    <!-- Liaison de l'app et du controleur -->    
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+    <script></script>
+    
 </head>
     
-<body>
-     
-    <!-- Liaison du controleur -->    
-    <script src="controllers/controller.js"></script>
+<body ng-controller="AppCtrl">
     
-    <!-- Tableau -->    
-    <div class="container" ng-controller="BarCtrl">
-        <h1>Commandes</h1>
-        <a ng-href="/client">Accéder au coté client</a>
-        <table class="table">
-
-            <!-- Header tableau -->    
-            <thead>
-                <tr>
-                    <th>Numero</th>
-                    <th>Contenu</th>
-                    <th>Action</th>
-                    <th></th>
-                </tr>
-            </thead>
-            
-            <!-- Body tableau -->    
-            <tbody>
-                <tr ng-repeat="order in orderlist">
-                    <td>{{order.number}}</td>
-                    <td>{{order.drinks}}</td> 
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <!-- Menu -->
+    <header>
+        <ul class="nav nav-pills nav-justified" >
+            <li role="presentation"><a href="#">Acceuil</a></li>
+            <li role="presentation"><a href="#/bar">Bar</a></li>
+            <li role="presentation"><a href="#/client">Client</a></li>
+        </ul>
+    </header>
+    
+    <!-- Injection du contenu ici -->
+    <div ng-view></div>
 </body>
 </html>

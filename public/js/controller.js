@@ -1,3 +1,15 @@
+function AppCtrl($scope, $http, $location) {
+    
+    // Contrôle //
+    console.log("Controller AppCtrl connected to the view");
+};
+
+function AcceuilCtrl($scope, $http, $location) {
+    
+    // Contrôle //
+    console.log("Controller AcceuilCtrl connected to the view");
+};
+
 function BarCtrl($scope, $http, $location) {
     
     // Contrôle //

@@ -1,0 +1,24 @@
+        <!-- Tableau -->    
+    <div class="container" ng-controller="ClientCtrl">
+        <h1>A la Carte</h1>
+        <table class="table">
+
+            <!-- Header tableau -->    
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Contenu</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <!-- Body tableau -->    
+            <tbody>
+                <tr ng-repeat="drink in drinklist">
+                    <td>{{drink.name}}</td>
+                    <td>{{drink.content}}</td> 
+                </tr>
+            </tbody>
+        </table>
+    </div>
