@@ -1,8 +1,8 @@
 // Configuration des routes du one pager //
 
-var billyapp = angular.module('billyapp', ['ngRoute']);
+var BillyApp = angular.module('BillyApp', ['ngRoute']);
     
- billyapp.config(['$routeProvider', function($routeProvider) {
+ BillyApp.config(['$routeProvider', function($routeProvider) {
         
      $routeProvider
 
