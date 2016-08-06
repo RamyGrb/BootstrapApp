@@ -21,7 +21,6 @@ app.get('/orderlist', function(req,res) {
        
         // Contrôle //
         console.log("Database sended to the controller");
-        console.log(docs);
         
         // Envoi de la database au controleur //
         res.json(docs);
