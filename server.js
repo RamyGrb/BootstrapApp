@@ -7,7 +7,7 @@ var db=mongojs('orderlist', ['orderlist','drinklist']);
 
 var bodyParser=require('body-parser');
 
-var mongoose = require('mongoose');
+var request = require('request');
 
 // Liaison entre le serveur et l'app //
 app.use(express.static(__dirname + "/public"));
@@ -44,6 +44,21 @@ app.get('/drinklist', function(req,res) {
         // Envoi de la database au controleur //
         res.json(docs);
     });
+});
+
+// Envoi de la commande à orderlist //
+app.post('/orderlist', function(req,res) {
+    // Contrôle //
+    console.log("Arrivée dans le serveur de l'id " + req.body)
+    // Extraction de la commande à partir de l'id //
+    var id = req.body;
+    var order = db.drinklist.find({_id: mongojs.ObjectId(id)})
+    // Contrôle //
+    console.log("valeur de la variables id: " + id + ", et de order: " + order)
+    // Envoi à orderlist//
+    db.orderlist.insert(order, function(err, doc) {
+        res.json(doc);
+    })
 });
 
 // Port du serveur //

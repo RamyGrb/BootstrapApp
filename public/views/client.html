@@ -18,7 +18,8 @@
                 <tr ng-repeat="drink in drinklist">
                     <td>{{drink.name}}</td>
                     <td>{{drink.content}}</td> 
-                    <td><button type="button" class="btn btn-Primary">Commander</button></td> 
+                    <!-- Bouton envoyant l'id de la commande dans le scope -->
+                    <td><button type="button" class="btn btn-Primary" ng-click="addOrder(drink._id)">Commander</button></td> 
 
                 </tr>
             </tbody>
