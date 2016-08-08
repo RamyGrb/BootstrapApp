@@ -31,19 +31,19 @@ function ClientCtrl($scope, $http) {
     console.log("Controller ClientCtrl connected to the view");
     
     // Récupération de la database des commandes //
-    $http.get('/orderlist').success(function(response) {
+    $http.get('/orderlist').success(function(res) {
         // Contrôle //
         console.log("Controller ClientCtrl received the order database from the server");
         // Envoi //
-        $scope.orderlist = response;
+        $scope.orderlist = res;
     });
     
     // Récupération de la database des boissons //
-    $http.get('/drinklist').success(function(response) {
+    $http.get('/drinklist').success(function(res) {
         // Contrôle //
         console.log("Controller ClientCtrl received the drink database from the server");
         // Envoi //
-        $scope.drinklist = response;
+        $scope.drinklist = res;
     });
     
     // Envoi de la commande à la database orderlist du bar //

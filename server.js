@@ -12,6 +12,9 @@ var request = require('request');
 // Liaison entre le serveur et l'app //
 app.use(express.static(__dirname + "/public"));
 
+// Parse des requêtes //
+app.use(bodyParser.urlencoded({extended : true}));
+
 // Récupération de la database orderlist //
 app.get('/orderlist', function(req,res) {
     
@@ -47,7 +50,7 @@ app.get('/drinklist', function(req,res) {
 });
 
 // Envoi de la commande à orderlist //
-app.post('/orderlist', function(req,res) {
+app.post("/orderlist", function(req,res) {
     // Contrôle //
     console.log("Arrivée dans le serveur de l'id " + req.body)
     // Extraction de la commande à partir de l'id //
