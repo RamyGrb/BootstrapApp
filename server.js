@@ -3,7 +3,7 @@ var express=require('express');
 var app = express();
 
 var mongojs=require('mongojs');
-var db=mongojs('orderlist', ['orderlist','drinklist']);
+var db=mongojs('orderbase', ['orderlist','drinklist']);
 
 var bodyParser=require('body-parser');
 

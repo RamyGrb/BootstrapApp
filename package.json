@@ -1,0 +1,29 @@
+{
+  "name": "bootstrapapp",
+  "version": "0.0.1",
+  "description": "Interface cote bar et client pour simuler la gestion des commandes via node",
+  "main": "server.js",
+  "dependencies": {
+    "angular-route": "^1.2.28",
+    "body-parser": "^1.15.2",
+    "mongojs": "^2.4.0",
+    "express": "^4.14.0",
+    "node": "^0.0.0",
+    "request": "^2.74.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RamyGrb/BootstrapApp.git"
+  },
+  "author": "RamyGrb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RamyGrb/BootstrapApp/issues"
+  },
+  "homepage": "https://github.com/RamyGrb/BootstrapApp#readme"
+}
