@@ -48,11 +48,12 @@ function ClientCtrl($scope, $http) {
     
     // Envoi de la commande à la database orderlist du bar //
     $scope.addOrder = function(id) {
+    var idJSON = {id};
         // Envoi de l'id //
-        $http.post('/orderlist',id)
+        $http.post('/orderlist',idJSON)
         // Contrôle //
         .success(function(response) {
-            console.log("Envoi de la commande corresponsant à l'id " + id);
+            console.log("Envoi de la commande corresponsant à l'id " + idJSON);
         });
     };
 };

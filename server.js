@@ -12,8 +12,8 @@ var request = require('request');
 // Liaison entre le serveur et l'app //
 app.use(express.static(__dirname + "/public"));
 
-// Parse des requêtes //
-app.use(bodyParser.urlencoded({extended : true}));
+// Parse des requêtes, nécessaire pour les requêtes POST //
+app.use(bodyParser.json());
 
 // Récupération de la database orderlist //
 app.get('/orderlist', function(req,res) {
@@ -53,15 +53,6 @@ app.get('/drinklist', function(req,res) {
 app.post("/orderlist", function(req,res) {
     // Contrôle //
     console.log("Arrivée dans le serveur de l'id " + req.body)
-    // Extraction de la commande à partir de l'id //
-    var id = req.body;
-    var order = db.drinklist.find({_id: mongojs.ObjectId(id)})
-    // Contrôle //
-    console.log("valeur de la variables id: " + id + ", et de order: " + order)
-    // Envoi à orderlist//
-    db.orderlist.insert(order, function(err, doc) {
-        res.json(doc);
-    })
 });
 
 // Port du serveur //
@@ -69,3 +60,13 @@ app.listen(3000);
 
 // Contrôle //
 console.log("Server running on port 3000");
+
+    // Extraction de la commande à partir de l'id //
+//    var id = req.body;
+//    var order = db.drinklist.find({_id: mongojs.ObjectId(id)})
+    // Contrôle //
+//    console.log("valeur de la variables id: " + id + ", et de order: " + order)
+    // Envoi à orderlist//
+//    db.orderlist.insert(order, function(err, doc) {
+//        res.json(doc);
+//    })
