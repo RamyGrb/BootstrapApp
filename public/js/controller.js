@@ -1,15 +1,17 @@
+// Main Contrôleur de l'Application //
 function AppCtrl($scope, $http, $location) {
-    
     // Contrôle //
     console.log("Controller AppCtrl connected to the view");
 };
 
+// Contrôleur de l'Acceuil //
 function AcceuilCtrl($scope, $http, $location) {
     
     // Contrôle //
     console.log("Controller AcceuilCtrl connected to the view");
 };
 
+// Contrôleur de la vue Bar //
 function BarCtrl($scope, $http, $location) {
     
     // Contrôle //
@@ -25,8 +27,8 @@ function BarCtrl($scope, $http, $location) {
     });
 };
 
+// Contrôleur de la vue Client //
 function ClientCtrl($scope, $http) {
-    
     // Contrôle //
     console.log("Controller ClientCtrl connected to the view");
     
@@ -34,6 +36,7 @@ function ClientCtrl($scope, $http) {
     $http.get('/orderlist').success(function(res) {
         // Contrôle //
         console.log("Controller ClientCtrl received the order database from the server");
+        
         // Envoi //
         $scope.orderlist = res;
     });
@@ -42,18 +45,20 @@ function ClientCtrl($scope, $http) {
     $http.get('/drinklist').success(function(res) {
         // Contrôle //
         console.log("Controller ClientCtrl received the drink database from the server");
+        
         // Envoi //
         $scope.drinklist = res;
     });
     
     // Envoi de la commande à la database orderlist du bar //
     $scope.addOrder = function(id) {
-    var idJSON = {id};
+        
         // Envoi de l'id //
+        var idJSON = [id];
         $http.post('/orderlist',idJSON)
         // Contrôle //
         .success(function(response) {
-            console.log("Envoi de la commande corresponsant à l'id " + idJSON);
+            console.log("La commande d'id " + idJSON + " a bien été enregistrée");
         });
     };
 };
