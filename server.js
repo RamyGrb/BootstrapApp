@@ -44,23 +44,30 @@ app.get('/drinklist', function(req,res) {
 });
 
 // Envoi de la commande à orderlist //
-app.post("/orderlist", function(req,res) {
+app.post('/orderlist', function(req,res) {
     // Contrôle //
-    console.log("Arrivée dans le serveur de l'id " + req.body.toString() );
-
-    // Extraction de la commande à partir de l'id //
-    var id = req.body.toString();
+//    console.log("Arrivée dans le serveur de l'id " + req.body.toString() );
     
-    db.drinklist.find({ _id: mongojs.ObjectId(id) }, function (err, doc) {
+    db.orderlist.find(function(err,doc) {
+        console.log("orderlist : " + doc);
+    });
+    
+    db.drinklist.find(function(err,doc) {
+        console.log("drinklist : " + doc);
+    });
+    
+    // Extraction de la commande à partir de l'id //
+//    var id = req.body.toString();
+    
+//    db.drinklist.find({ _id: mongojs.ObjectId(id) }, function (err, doc) {
         // Contrôle //
-        console.log("La commande à envoyer sur orderlist est: " + doc);
-        // CA RENVOIE UN OBJET NUL. JE PENSE QUE C'EST PARCE QUE L'ID NE MATCHE PAS AVEC UN ID DE LA BDD. A VOIR POURQUOI //
+//        console.log("La commande à envoyer sur orderlist est: " + doc);
 
         // Envoi à orderlist//
-        db.orderlist.insert(docDrink, function(err, docOrder) {
-            res.json(docOrder);
-        });
-    });    
+//       db.orderlist.insert(docDrink, function(err, docOrder) {
+//           res.json(docOrder);
+//        });
+//    });    
 });
 
 // Port du serveur //

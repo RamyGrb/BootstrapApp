@@ -58,7 +58,7 @@ function ClientCtrl($scope, $http) {
         $http.post('/orderlist',idJSON)
         // Contrôle //
         .success(function(response) {
-            console.log("La commande d'id " + idJSON + " a bien été enregistrée");
+            console.log("La commande d'id" + idJSON + " a bien été enregistrée");
         });
     };
 };
