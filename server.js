@@ -46,28 +46,23 @@ app.get('/drinklist', function(req,res) {
 // Envoi de la commande à orderlist //
 app.post('/orderlist', function(req,res) {
     // Contrôle //
-//    console.log("Arrivée dans le serveur de l'id " + req.body.toString() );
-    
-    db.orderlist.find(function(err,doc) {
-        console.log("orderlist : " + doc);
-    });
-    
-    db.drinklist.find(function(err,doc) {
-        console.log("drinklist : " + doc);
-    });
+    console.log("Arrivée dans le serveur de l'id " + req.body.toString() );
     
     // Extraction de la commande à partir de l'id //
-//    var id = req.body.toString();
-    
-//    db.drinklist.find({ _id: mongojs.ObjectId(id) }, function (err, doc) {
+    var id = req.body.toString();
+    db.drinklist.findOne({_id: mongojs.ObjectId(id)}, function (err, docDrink) {
         // Contrôle //
-//        console.log("La commande à envoyer sur orderlist est: " + doc);
-
-        // Envoi à orderlist//
-//       db.orderlist.insert(docDrink, function(err, docOrder) {
+        console.log("La commande à envoyer sur orderlist est: " + JSON.stringify(docDrink.name));
+        
+        // Génération Numéro de Commande//
+        var numero = Math.floor(Math.random()*1000);
+        
+        // Envoi de la Commande à orderlist//
+        var commande = {number: numero, drinks: docDrink.name};
+        db.orderlist.insert(commande, function(err, docOrder) {
 //           res.json(docOrder);
-//        });
-//    });    
+        });
+    });    
 });
 
 // Port du serveur //

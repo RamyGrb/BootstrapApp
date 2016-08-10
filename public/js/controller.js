@@ -55,10 +55,10 @@ function ClientCtrl($scope, $http) {
         
         // Envoi de l'id //
         var idJSON = [id];
-        $http.post('/orderlist',idJSON)
-        // Contrôle //
-        .success(function(response) {
+        $http.post('/orderlist',idJSON).success(function(res) {
+            // Contrôle //
             console.log("La commande d'id" + idJSON + " a bien été enregistrée");
+            
         });
     };
 };
