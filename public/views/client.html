@@ -41,12 +41,12 @@
             
             <!-- Body tableau -->    
             <tbody>
-                <tr ng-repeat="drink in orderlist">
-                    <td>{{drink.number}}</td>
-                    <td>{{drink.drinks}}</td> 
-                    <td>{{drink.state}}</td>
+                <tr ng-repeat="order in orderlist">
+                    <td>{{order.number}}</td>
+                    <td>{{order.drinks}}</td> 
+                    <td>{{order.state}}</td>
                     <!-- Bouton envoyant l'id de la commande dans le scope -->
-                    <td><button type="button" class="btn btn-Primary" ng-click="">Terminer</button></td> 
+                    <td><button type="button" class="btn btn-Primary" ng-click="endOrder(drink._id)">Terminer</button></td> 
                 </tr>
             </tbody>
         </table>

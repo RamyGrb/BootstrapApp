@@ -60,11 +60,12 @@ app.get('/orderlist', function(req,res) {
 
 // Passage d'une commande //
 app.post('/barlist', function(req,res) {
+    
+    var id = req.body.toString();
     // Contrôle //
-    console.log("Reception of id: " + req.body.toString() );
+    console.log("Reception of id: " + id );
     
     // Extraction de la commande à partir de l'id //
-    var id = req.body.toString();
     db.drinklist.findOne({_id: mongojs.ObjectId(id)}, function (err, docDrink) {
         // Contrôle //
         console.log("Sending the order: " + JSON.stringify(docDrink.name));
@@ -86,6 +87,30 @@ app.post('/barlist', function(req,res) {
         });
         
     });    
+});
+
+// Terminer une commande coté Bar //
+app.delete('/barlist/:id', function(req,res) {
+    
+    var id = req.params.id;
+    // Contrôle //
+    console.log("Deletion of id: " + id );
+    
+    db.barlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
+        res.json(doc);
+    });
+});
+
+// Terminer une commande coté Client //
+app.delete('/orderlist/:id', function(req,res) {
+    
+    var id = req.params.id;
+    // Contrôle //
+    console.log("Deletion of id: " + id );
+    
+    db.orderlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
+        res.json(doc);
+    });
 });
 
 // Port du serveur //

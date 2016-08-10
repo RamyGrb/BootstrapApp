@@ -25,6 +25,20 @@ function BarCtrl($scope, $http) {
         $scope.barlist = response;
     
     });
+    
+    // Envoyer une Commande //
+    $scope.readyOrder = function(number) {
+    };
+    
+    // Terminer une Commande //
+    $scope.endOrder = function(id) {
+        
+        // Envoi de l'id //
+        $http.delete('/barlist/'+id).success(function(res) {
+            // Contrôle //
+            console.log("command #" + id + "has ended");
+        });
+    };
 };
 
 // Contrôleur de la vue Client //
@@ -67,6 +81,16 @@ function ClientCtrl($scope, $http) {
         $http.post('/barlist',idJSON).success(function(res) {
             // Contrôle //
             console.log("command (id: " + idJSON + ") registered");
+        });
+    };
+    
+    // Terminer une Commande //
+    $scope.endOrder = function(id) {
+        
+        // Envoi de l'id //
+        $http.delete('/orderlist/'+id).success(function(res) {
+            // Contrôle //
+            console.log("command #" + id + "has ended");
         });
     };
 };
