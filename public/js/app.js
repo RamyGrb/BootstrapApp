@@ -19,11 +19,9 @@ var BillyApp = angular.module('BillyApp', ['ngRoute']);
          .when('/client', {
                 templateUrl : '../views/client.html',
                 controller  : 'ClientCtrl'
-            })
+            })     
      
          .otherwise({
             redirectTo: '../acceuil'
             });
-
-     
  }]);

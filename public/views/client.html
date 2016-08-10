@@ -1,5 +1,6 @@
-    <!-- Tableau -->    
     <div class="container">
+        
+        <!-- Tableau A la Carte-->    
         <h1>A la Carte</h1>
         <table class="table">
 
@@ -20,7 +21,32 @@
                     <td>{{drink.content}}</td> 
                     <!-- Bouton envoyant l'id de la commande dans le scope -->
                     <td><button type="button" class="btn btn-Primary" ng-click="addOrder(drink._id)">Commander</button></td> 
-
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Tableau Commandes-->            
+        <h1>Verres Commandés</h1>
+        <table class="table">
+            
+            <!-- Header tableau -->    
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Nom</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <!-- Body tableau -->    
+            <tbody>
+                <tr ng-repeat="drink in orderlist">
+                    <td>{{drink.number}}</td>
+                    <td>{{drink.drinks}}</td> 
+                    <td>{{drink.state}}</td>
+                    <!-- Bouton envoyant l'id de la commande dans le scope -->
+                    <td><button type="button" class="btn btn-Primary" ng-click="">Terminer</button></td> 
                 </tr>
             </tbody>
         </table>
