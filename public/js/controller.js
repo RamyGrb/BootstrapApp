@@ -86,9 +86,9 @@ function ClientCtrl($scope, $http) {
     
     // Terminer une Commande //
     $scope.endOrder = function(id) {
-        
+        console.log(id);
         // Envoi de l'id //
-        $http.delete('/orderlist/'+id).success(function(res) {
+        $http.delete('/orderlist/' + id).success(function(res) {
             // Contrôle //
             console.log("command #" + id + "has ended");
         });

@@ -94,7 +94,7 @@ app.delete('/barlist/:id', function(req,res) {
     
     var id = req.params.id;
     // Contrôle //
-    console.log("Deletion of id: " + id );
+    console.log("Delete of id: " + id);
     
     db.barlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
         res.json(doc);
@@ -106,7 +106,7 @@ app.delete('/orderlist/:id', function(req,res) {
     
     var id = req.params.id;
     // Contrôle //
-    console.log("Deletion of id: " + id );
+    console.log("Deletion of id: " + id);
     
     db.orderlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
         res.json(doc);
