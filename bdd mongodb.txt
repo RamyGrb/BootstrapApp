@@ -1,0 +1,4 @@
+base de donnée : "orderbase"
+collections : ["drinklist", "orderlist", "barlist"]
+orderlist et barlist vide
+documents de drinklist sous la forme : {name: 'NOM BOISSON', content: 'INGREDIENTS BOISSON'}

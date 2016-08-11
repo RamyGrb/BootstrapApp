@@ -18,8 +18,8 @@
                 <tr ng-repeat="order in barlist">
                     <td>{{order.number}}</td>
                     <td>{{order.drinks}}</td> 
-                    <td><button type="button" class="btn btn-Warning" ng-click="readyOrder(order.number)">Envoyer</button></td>
-                    <td><button type="button" class="btn btn-Success" disabled="disabled" ng-click="endOrder(order._id)">Terminer</button></td>
+                    <td><button type="button" class="btn btn-Warning" ng-click="readyOrder(order._id)">Envoyer</button></td>
+                    <td><button type="button" class="btn btn-Success" ng-click="endOrder(order._id)" ng-class="{'disabled': orderState(order._id)}" >Terminer</button></td>
                 </tr>
             </tbody>
         </table>

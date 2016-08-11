@@ -74,8 +74,8 @@ app.post('/barlist', function(req,res) {
         var numero = Math.floor((Math.random()*1000));
         
         // Envoi de la Commande à barlist et orderlist//
-        var commandeBar = {number: numero, drinks: docDrink.name};
-        var commandeOrder = {number: numero, drinks: docDrink.name, state: "En attente"};
+        var commandeBar = {number: numero, drinks: docDrink.name, state: "En attente"};
+        var commandeOrder = commandeBar;
         
         db.barlist.insert(commandeBar, function(err,doc) {
             // Contrôle //
@@ -106,7 +106,7 @@ app.delete('/orderlist/:id', function(req,res) {
     
     var id = req.params.id;
     // Contrôle //
-    console.log("Deletion of id: " + id);
+    console.log("Deletion of number #" + id);
     
     db.orderlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
         res.json(doc);

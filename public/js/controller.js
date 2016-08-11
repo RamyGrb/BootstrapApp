@@ -13,21 +13,43 @@ function AcceuilCtrl($scope, $http) {
 
 // Contrôleur de la vue Bar //
 function BarCtrl($scope, $http) {
-    
     // Contrôle //
     console.log("Controller BarCtrl connected to the view Bar");
      
     // Récupération de la database des commandes //
-    $http.get('/barlist').success(function(response) { 
+    $http.get('/barlist').success(function(res) { 
         // Contrôle //
         console.log("Controller BarCtrl received the order database from the server");
+        
         // Envoi //
-        $scope.barlist = response;
-    
+        $scope.barlist = res;
     });
     
-    // Envoyer une Commande //
-    $scope.readyOrder = function(number) {
+    // Changement d'etat d'une commande à prêt//
+    $scope.readyOrder = function(id) {};
+    
+    // Etat bouton Terminer //
+    $scope.orderState = function(id) {
+        
+        // Créations de variables pour simplifier l'écriture //
+        var barlist = $scope.barlist ;
+        var length = barlist.length ;
+        var idOrder, idState, idId ;
+        
+        // On parcours la bdd pour trouver l'élément correspondant à la commande //
+        for (var i=0; i < length; i++) {
+        
+            // Définition des variables pour simplifier l'écriture //
+            idOrder = barlist[i] ;
+            idId = idOrder._id ;
+            idState = idOrder.state ;
+            
+            // Si c'est la bonne commande et que la commande est prête, on peut la terminer //
+            if ( idStudy = id) {
+                if ( (barlist[i])._state = "Prêt" ) return true
+                else return false
+            }
+        }
     };
     
     // Terminer une Commande //
@@ -64,7 +86,7 @@ function ClientCtrl($scope, $http) {
         $scope.drinklist = res;
     });
     
-    // Récupération de la database des commandes cliennt //
+    // Récupération de la database des commandes client //
     $http.get('/orderlist').success(function(res) {
         // Contrôle //
         console.log("Controller ClientCtrl received orderlist from the server");
@@ -86,7 +108,7 @@ function ClientCtrl($scope, $http) {
     
     // Terminer une Commande //
     $scope.endOrder = function(id) {
-        console.log(id);
+        console.log("ending the order #" + id);
         // Envoi de l'id //
         $http.delete('/orderlist/' + id).success(function(res) {
             // Contrôle //
