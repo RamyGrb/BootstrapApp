@@ -46,7 +46,7 @@ function BarCtrl($scope, $http) {
             
             // Si c'est la bonne commande et que la commande est prête, on peut la terminer //
             if ( idStudy = id) {
-                if ( (barlist[i])._state = "Prêt" ) return true
+                if ( idState = "Prêt" ) return true
                 else return false
             }
         }
@@ -67,15 +67,6 @@ function BarCtrl($scope, $http) {
 function ClientCtrl($scope, $http) {
     // Contrôle //
     console.log("Controller ClientCtrl connected to the view Client");
-    
-    // Récupération de la database des commandes //
-    $http.get('/barlist').success(function(res) {
-        // Contrôle //
-        console.log("Controller ClientCtrl received barlist from the server");
-        
-        // Envoi //
-        $scope.barlist = res;
-    });
     
     // Récupération de la database des boissons //
     $http.get('/drinklist').success(function(res) {
@@ -105,6 +96,30 @@ function ClientCtrl($scope, $http) {
             console.log("command (id: " + idJSON + ") registered");
         });
     };
+    
+    // Etat bouton Terminer //
+    $scope.orderState = function(id) {
+        
+        // Créations de variables pour simplifier l'écriture //
+        var drinklist = $scope.drinklist ;
+        var length = drinklist.length ;
+        var idOrder, idState, idId ;
+        
+        // On parcours la bdd pour trouver l'élément correspondant à la commande //
+        for (var i=0; i < length; i++) {
+        
+            // Définition des variables pour simplifier l'écriture //
+            idOrder = drinklist[i] ;
+            idId = idOrder._id ;
+            idState = idOrder.state ;
+            
+            // Si c'est la bonne commande et que la commande est prête, on peut la terminer //
+            if ( idStudy = id) {
+                if ( idState = "Prêt" ) return true
+                else return false
+            }
+        }
+    };    
     
     // Terminer une Commande //
     $scope.endOrder = function(id) {
