@@ -1,4 +1,4 @@
-// Contrôleur de la vue Client //
+// Contrôleur de la vue client //
 function ClientCtrl($scope, $http) {
     // Contrôle //
     console.log("Controller ClientCtrl connected to the view Client");
@@ -32,7 +32,7 @@ function ClientCtrl($scope, $http) {
         });
     };
     
-    // Etat bouton Terminer //
+    // Etat bouton terminer //
     $scope.orderState = function(id) {
         
         // Créations de variables pour simplifier l'écriture //
@@ -56,9 +56,10 @@ function ClientCtrl($scope, $http) {
         }
     };    
     
-    // Terminer une Commande //
+    // Terminer une commande //
     $scope.endOrder = function(id) {
         console.log("ending the order #" + id);
+        
         // Envoi de l'id //
         $http.delete('/orderlist/' + id).success(function(res) {
             // Contrôle //

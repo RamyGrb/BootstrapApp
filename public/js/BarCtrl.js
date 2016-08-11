@@ -1,4 +1,4 @@
-// Contrôleur de la vue Bar //
+// Contrôleur de la vue bar //
 function BarCtrl($scope, $http) {
     // Contrôle //
     console.log("Controller BarCtrl connected to the view Bar");
@@ -15,7 +15,7 @@ function BarCtrl($scope, $http) {
     // Changement d'etat d'une commande à prêt//
     $scope.readyOrder = function(id) {};
     
-    // Etat bouton Terminer //
+    // Etat bouton terminer //
     $scope.orderState = function(id) {
         
         // Créations de variables pour simplifier l'écriture //
@@ -39,7 +39,7 @@ function BarCtrl($scope, $http) {
         }
     };
     
-    // Terminer une Commande //
+    // Terminer une commande //
     $scope.endOrder = function(id) {
         
         // Envoi de l'id //
