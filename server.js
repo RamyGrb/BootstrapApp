@@ -16,45 +16,45 @@ app.use(bodyParser.json());
 // Récupération de la database barlist //
 app.get('/barlist', function(req,res) {
     // Contrôle //
-    console.log("Server GET barlist request");
+    console.log("database barlist to send");
     
     // Connexion à Mongodb, docs = la database récupérée //
     db.barlist.find(function(err,docs){
-        // Contrôle //
-        console.log("Database barlist sent to the controller");
         
         // Envoi de la database au controleur //
         res.json(docs);
+        // Contrôle //
+        console.log("database barlist sent");
     });
 });
 
 // Récupération de la database drinklist //
 app.get('/drinklist', function(req,res) {
     // Contrôle //
-    console.log("Server GET drinklist request");
+    console.log("database drinklist to send");
     
     // Connexion à Mongodb, docs = la database récupérée //
     db.drinklist.find(function(err,docs){
-        // Contrôle //
-        console.log("Database drinklist sent to the controller");
         
         // Envoi de la database au controleur //
         res.json(docs);
+        // Contrôle //
+        console.log("database drinklist sent");        
     });
 });
 
 // Récupération de la database orderlist //
 app.get('/orderlist', function(req,res) {
     // Contrôle //
-    console.log("Server GET orderlist request");
+    console.log("database orderlist to send");
     
     // Connexion à Mongodb, docs = la database récupérée //
     db.orderlist.find(function(err,docs){
-        // Contrôle //
-        console.log("Database orderlist sent to the controller");
         
         // Envoi de la database au controleur //
         res.json(docs);
+        // Contrôle //
+        console.log("database orderlist sent");        
     });
 });
 
@@ -63,12 +63,12 @@ app.post('/barlist', function(req,res) {
     
     var id = req.body.toString();
     // Contrôle //
-    console.log("Reception of id: " + id );
+    console.log("command id: " + id + " to send to barlist");
     
     // Extraction de la commande à partir de l'id //
     db.drinklist.findOne({_id: mongojs.ObjectId(id)}, function (err, docDrink) {
         // Contrôle //
-        console.log("Sending the order: " + JSON.stringify(docDrink.name));
+        console.log("command " + JSON.stringify(docDrink.name + "to send to barlist"));
         
         // Génération Numéro de Commande//
         var numero = Math.floor((Math.random()*1000));
@@ -79,11 +79,11 @@ app.post('/barlist', function(req,res) {
         
         db.barlist.insert(commandeBar, function(err,doc) {
             // Contrôle //
-            console.log("the drink is sent to barlist");
+            console.log("command if: " + id + " sent to barlist");
         });
         db.orderlist.insert(commandeOrder, function(err,doc) {
             // Contrôle //
-            console.log("the drink is sent to orderlist");
+            console.log("command if: " + id + " sent to orderlist");
         });
         
     });    
@@ -94,7 +94,7 @@ app.put('/barlist/:id', function(req,res) {
     
     var id = req.params.id;
     // Contrôle //
-    console.log("Reception of the id to update in barlist: " + id);
+    console.log("command id:" + id + "to update in barlist");
     
     // Modification de l'état de la commande
     db.barlist.findAndModify({
@@ -104,7 +104,7 @@ app.put('/barlist/:id', function(req,res) {
     }, function(err, doc) {
         res.json(doc);        
         // Contrôle //
-        console.log("Command #" + doc.number + " has its state updated in barlist");
+        console.log("command #" + doc.number + " updated in barlist");
     });
 });
 
@@ -113,17 +113,17 @@ app.put('/orderlist/:id', function(req,res) {
     
     var number = req.body.number;
     // Contrôle //
-    console.log("Reception of the command #" + number + "to update in orderlist");
+    console.log("command #" + number + " to update in orderlist");
 
     // Modification de l'état de la commande
     db.orderlist.findAndModify({
-        query: {number: mongojs.ObjectId(number)}, 
+        query: {number: number}, 
         update: {$set: {state: "C'est Prêt"}},
         new: true
     }, function(err, doc) {
         res.json(doc);        
         // Contrôle //
-        console.log("Command #" + number + " is updated in orderlist");
+        console.log("command #" + number + " updated in orderlist");
     });    
 });
 
@@ -132,12 +132,12 @@ app.delete('/barlist/:id', function(req,res) {
     
     var id = req.params.id;
     // Contrôle //
-    console.log("Delete of id: " + id);
+    console.log("command id: " + id + " to delete");
     
     db.barlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
         res.json(doc);
         // Contrôle //
-        console.log("id:" + id + "is deleted")
+        console.log("command id: " + id + " deleted")
     });
 });
 
@@ -146,10 +146,12 @@ app.delete('/orderlist/:id', function(req,res) {
     
     var id = req.params.id;
     // Contrôle //
-    console.log("Deletion of number #" + id);
+    console.log("command #" + id + " to delete");
     
     db.orderlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
         res.json(doc);
+        // Contrôle //
+        console.log("command id: " + id + " deleted")        
     });
 });
 
@@ -157,5 +159,5 @@ app.delete('/orderlist/:id', function(req,res) {
 app.listen(3000);
 
 // Contrôle //
-console.log("Server running on port 3000");
+console.log("server running on port 3000");
 

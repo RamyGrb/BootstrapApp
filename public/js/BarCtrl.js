@@ -1,7 +1,7 @@
 // Contrôleur de la vue bar //
 function BarCtrl($scope, $http) {
     // Contrôle //
-    console.log("Controller BarCtrl connected to the view Bar");
+    console.log("controller BarCtrl connected to the view Bar");
      
     // Récupération de la database des commandes //
     $http.get('/barlist').success(function(res) { 
@@ -15,17 +15,17 @@ function BarCtrl($scope, $http) {
     // Changement d'etat d'une commande à prêt//
     $scope.readyOrder = function(id) {
         // Contrôle //
-        console.log("id to change state: " +id);
+        console.log("command id: " + id + " to update");
         
         // Changemet dans barlist //
         $http.put('/barlist/'+id).success(function(res) {
             // Contrôle //
-            console.log("Command #" + res.number + " is updated in barlist");
+            console.log("command #" + res.number + " updated in barlist");
             
             // Changement dans orderlist //
             $http.put('/orderlist/'+id, res).success(function(res2) {
                 // Contrôle //
-                console.log("Command #" + res2.number + " is updated in orderlist");
+                console.log("command #" + res2.number + " updated in orderlist");
             });
         });
     };
@@ -61,7 +61,7 @@ function BarCtrl($scope, $http) {
         // Envoi de l'id //
         $http.delete('/barlist/'+id).success(function(res) {
             // Contrôle //
-            console.log("command id" + res + "has ended");
+            console.log("command id: " + id + " ended");
         });
     };
 };

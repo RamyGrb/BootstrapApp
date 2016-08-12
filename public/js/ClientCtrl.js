@@ -1,12 +1,12 @@
 // Contrôleur de la vue client //
 function ClientCtrl($scope, $http) {
     // Contrôle //
-    console.log("Controller ClientCtrl connected to the view Client");
+    console.log("controller ClientCtrl connected to the view Client");
     
     // Récupération de la database des boissons //
     $http.get('/drinklist').success(function(res) {
         // Contrôle //
-        console.log("Controller ClientCtrl received drinklist from the server");
+        console.log("controller ClientCtrl received drinklist");
         
         // Envoi //
         $scope.drinklist = res;
@@ -15,7 +15,7 @@ function ClientCtrl($scope, $http) {
     // Récupération de la database des commandes client //
     $http.get('/orderlist').success(function(res) {
         // Contrôle //
-        console.log("Controller ClientCtrl received orderlist from the server");
+        console.log("controller ClientCtrl received orderlist");
         
         // Envoi //
         $scope.orderlist = res;
@@ -28,7 +28,7 @@ function ClientCtrl($scope, $http) {
         var idJSON = [id];
         $http.post('/barlist',idJSON).success(function(res) {
             // Contrôle //
-            console.log("command (id: " + idJSON + ") registered");
+            console.log("command id: " + idJSON + " registered");
         });
     };
     
@@ -58,12 +58,11 @@ function ClientCtrl($scope, $http) {
     
     // Terminer une commande //
     $scope.endOrder = function(id) {
-        console.log("ending the order #" + id);
         
         // Envoi de l'id //
         $http.delete('/orderlist/' + id).success(function(res) {
             // Contrôle //
-            console.log("command #" + id + "has ended");
+            console.log("command id: " + id + " ended");
         });
     };
 };
