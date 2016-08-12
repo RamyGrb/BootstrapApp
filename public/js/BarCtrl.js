@@ -3,6 +3,14 @@ function BarCtrl($scope, $http) {
     // Contrôle //
     console.log("controller BarCtrl connected to the view Bar");
      
+    // Rafraîchir barlist //
+    var refreshBar = function() {
+        $http.get('/barlist').success(function(res) {
+            $scope.barlist = res;
+        });      
+        $scope.order = "";        
+    };    
+    
     // Récupération de la database des commandes //
     $http.get('/barlist').success(function(res) { 
         // Contrôle //
@@ -27,6 +35,7 @@ function BarCtrl($scope, $http) {
             $http.put('/orderlist/'+id, res).success(function(res2) {
                 // Contrôle //
                 console.log("command #" + res2.number + " updated in orderlist");
+                refreshBar();
             });
         });
     };
@@ -67,6 +76,7 @@ function BarCtrl($scope, $http) {
             $http.delete('/barlist/'+id).success(function(res) {
                 // Contrôle //
                 console.log("command #" + order.number + " ended");
+                refreshBar();
             });
         }
         else { 

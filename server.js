@@ -80,10 +80,12 @@ app.post('/barlist', function(req,res) {
         db.barlist.insert(commandeBar, function(err,doc) {
             // Contrôle //
             console.log("command id: " + id + " sent to barlist");
+            res.json(doc);
         });
         db.orderlist.insert(commandeOrder, function(err,doc) {
             // Contrôle //
             console.log("command id: " + id + " sent to orderlist");
+            res.json(doc);
         });
         
     });    

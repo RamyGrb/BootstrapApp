@@ -3,6 +3,14 @@ function ClientCtrl($scope, $http) {
     // Contrôle //
     console.log("controller ClientCtrl connected to the view Client");
     
+    // Rafraîchir orderlist //
+    var refreshOrder = function() {
+        $http.get('/orderlist').success(function(res) {
+            $scope.orderlist = res;
+        });      
+        $scope.order = "";        
+    };         
+    
     // Récupération de la database des boissons //
     $http.get('/drinklist').success(function(res) {
         // Contrôle //
@@ -28,8 +36,9 @@ function ClientCtrl($scope, $http) {
         var idJSON = [id];
         $http.post('/barlist',idJSON).success(function(res) {
             // Contrôle //
-            console.log("command id: " + idJSON + " registered");
+            console.log("command id: " + idJSON + " sent");
         });
+        refreshOrder();
     };
     
     // Etat bouton terminer //
@@ -65,5 +74,6 @@ function ClientCtrl($scope, $http) {
         // Contrôle //
         console.log("command id: " + id + " ended");
         });
+        refreshOrder();
     };
 };
