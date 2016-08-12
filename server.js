@@ -85,7 +85,6 @@ app.post('/barlist', function(req,res) {
         db.orderlist.insert(commandeOrder, function(err,doc) {
             // Contrôle //
             console.log("command id: " + id + " sent to orderlist");
-            res.json(doc);
         });
         
     });    
