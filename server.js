@@ -89,6 +89,44 @@ app.post('/barlist', function(req,res) {
     });    
 });
 
+// Commande prête coté bar //
+app.put('/barlist/:id', function(req,res) {
+    
+    var id = req.params.id;
+    // Contrôle //
+    console.log("Reception of the id to update in barlist: " + id);
+    
+    // Modification de l'état de la commande
+    db.barlist.findAndModify({
+        query: {_id: mongojs.ObjectId(id)}, 
+        update: {$set: {state: "C'est Prêt"}},
+        new: true
+    }, function(err, doc) {
+        res.json(doc);        
+        // Contrôle //
+        console.log("Command #" + doc.number + " has its state updated in barlist");
+    });
+});
+
+// Commande prête coté client //
+app.put('/orderlist/:id', function(req,res) {
+    
+    var number = req.body.number;
+    // Contrôle //
+    console.log("Reception of the command #" + number + "to update in orderlist");
+
+    // Modification de l'état de la commande
+    db.orderlist.findAndModify({
+        query: {number: mongojs.ObjectId(number)}, 
+        update: {$set: {state: "C'est Prêt"}},
+        new: true
+    }, function(err, doc) {
+        res.json(doc);        
+        // Contrôle //
+        console.log("Command #" + number + " is updated in orderlist");
+    });    
+});
+
 // Terminer une commande coté Bar //
 app.delete('/barlist/:id', function(req,res) {
     
@@ -98,6 +136,8 @@ app.delete('/barlist/:id', function(req,res) {
     
     db.barlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
         res.json(doc);
+        // Contrôle //
+        console.log("id:" + id + "is deleted")
     });
 });
 
