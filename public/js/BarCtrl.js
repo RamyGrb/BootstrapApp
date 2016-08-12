@@ -13,11 +13,12 @@ function BarCtrl($scope, $http) {
     });
     
     // Changement d'etat d'une commande à prêt//
-    $scope.readyOrder = function(id) {
+    $scope.readyOrder = function(order) {
         // Contrôle //
-        console.log("command id: " + id + " to update");
+        console.log("command #" + order.number + " to update");
         
         // Changemet dans barlist //
+        id = order._id ;        
         $http.put('/barlist/'+id).success(function(res) {
             // Contrôle //
             console.log("command #" + res.number + " updated in barlist");
@@ -56,12 +57,21 @@ function BarCtrl($scope, $http) {
     };
     
     // Terminer une commande //
-    $scope.endOrder = function(id) {
+    $scope.endOrder = function(order) {
+        var id=order._id ;
         
-        // Envoi de l'id //
-        $http.delete('/barlist/'+id).success(function(res) {
-            // Contrôle //
-            console.log("command id: " + id + " ended");
-        });
+        // Vérifier que la commande est prête //
+        if (order.state == "C'est Prêt") {                
+        
+                // Envoi de l'id //
+            $http.delete('/barlist/'+id).success(function(res) {
+                // Contrôle //
+                console.log("command id: " + id + " ended");
+            });
+        }
+        else { 
+            console.log("command id: " + id + " not ready yet");
+            alert("command is not ready yet !");
+        }
     };
 };

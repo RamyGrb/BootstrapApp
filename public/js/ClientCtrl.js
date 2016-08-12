@@ -57,12 +57,13 @@ function ClientCtrl($scope, $http) {
     };    
     
     // Terminer une commande //
-    $scope.endOrder = function(id) {
+    $scope.endOrder = function(order) {
+        var id=order._id ;
         
         // Envoi de l'id //
-        $http.delete('/orderlist/' + id).success(function(res) {
-            // Contrôle //
-            console.log("command id: " + id + " ended");
+        $http.delete('/orderlist/'+id).success(function(res) {
+        // Contrôle //
+        console.log("command id: " + id + " ended");
         });
     };
 };
