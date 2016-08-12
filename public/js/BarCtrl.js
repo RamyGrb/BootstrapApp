@@ -6,7 +6,7 @@ function BarCtrl($scope, $http) {
     // Récupération de la database des commandes //
     $http.get('/barlist').success(function(res) { 
         // Contrôle //
-        console.log("Controller BarCtrl received the order database from the server");
+        console.log("controller BarCtrl received the order database from the server");
         
         // Envoi //
         $scope.barlist = res;
@@ -66,11 +66,11 @@ function BarCtrl($scope, $http) {
                 // Envoi de l'id //
             $http.delete('/barlist/'+id).success(function(res) {
                 // Contrôle //
-                console.log("command id: " + id + " ended");
+                console.log("command #" + order.number + " ended");
             });
         }
         else { 
-            console.log("command id: " + id + " not ready yet");
+            console.log("command #" + order.number + " not ready yet");
             alert("command is not ready yet !");
         }
     };

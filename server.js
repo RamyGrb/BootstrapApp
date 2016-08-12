@@ -68,7 +68,7 @@ app.post('/barlist', function(req,res) {
     // Extraction de la commande à partir de l'id //
     db.drinklist.findOne({_id: mongojs.ObjectId(id)}, function (err, docDrink) {
         // Contrôle //
-        console.log("command " + JSON.stringify(docDrink.name + "to send to barlist"));
+        console.log("command " + JSON.stringify(docDrink.name + " to send to barlist"));
         
         // Génération Numéro de Commande//
         var numero = Math.floor((Math.random()*1000));
@@ -79,11 +79,11 @@ app.post('/barlist', function(req,res) {
         
         db.barlist.insert(commandeBar, function(err,doc) {
             // Contrôle //
-            console.log("command if: " + id + " sent to barlist");
+            console.log("command id: " + id + " sent to barlist");
         });
         db.orderlist.insert(commandeOrder, function(err,doc) {
             // Contrôle //
-            console.log("command if: " + id + " sent to orderlist");
+            console.log("command id: " + id + " sent to orderlist");
         });
         
     });    
@@ -94,7 +94,7 @@ app.put('/barlist/:id', function(req,res) {
     
     var id = req.params.id;
     // Contrôle //
-    console.log("command id:" + id + "to update in barlist");
+    console.log("command id:" + id + " to update in barlist");
     
     // Modification de l'état de la commande
     db.barlist.findAndModify({
