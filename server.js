@@ -157,7 +157,8 @@ app.delete('/orderlist/:id', function(req,res) {
 });
 
 // Port du serveur //
-app.listen(3000);
+var port = Number(process.env.PORT || 3000);
+app.listen(port);
 
 // Contrôle //
 console.log("server running on port 3000");
