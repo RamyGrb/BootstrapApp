@@ -3,6 +3,7 @@ var express=require('express');
 var app = express();
 
 var mongojs=require('mongojs');
+// Utilisation de la bdd sur MLab //
 var db = mongojs('billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx?authMechanism=SCRAM-SHA-1', ['barlist','drinklist','orderlist'])
 
 var bodyParser=require('body-parser');
