@@ -8,7 +8,7 @@ var db = mongojs('billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx?
 
 var bodyParser=require('body-parser');
 
-// Liaison entre le serveur et l'app //
+// Indiquer que nos fichiers se trouvent dans /public //
 app.use(express.static(__dirname + "/public"));
 
 // Parse des requêtes, nécessaire pour les requêtes POST //

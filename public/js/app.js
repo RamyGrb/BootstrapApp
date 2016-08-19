@@ -1,5 +1,3 @@
-// Configuration des routes du one pager //
-
 var BillyApp = angular.module('BillyApp', ['ngRoute']);
     
  BillyApp.config(['$routeProvider', function($routeProvider) {
@@ -7,8 +5,18 @@ var BillyApp = angular.module('BillyApp', ['ngRoute']);
      $routeProvider
 
          .when('/', {
-                templateUrl : '../views/acceuil.html',
-                controller  : 'AcceuilCtrl'
+                templateUrl : '../views/accueil.html',
+                controller  : 'AccueilCtrl'
+            })
+     
+         .when('/login', {
+                templateUrl : '../views/login.html',
+                controller  : 'LoginCtrl'
+            })     
+
+         .when('/signup', {
+                templateUrl : '../views/signup.html',
+                controller  : 'SignupCtrl'
             })
 
          .when('/bar', {
@@ -19,9 +27,14 @@ var BillyApp = angular.module('BillyApp', ['ngRoute']);
          .when('/client', {
                 templateUrl : '../views/client.html',
                 controller  : 'ClientCtrl'
-            })     
+            })  
+     
+         .when('/account', {
+                templateUrl : '../views/account.html',
+                controller  : 'AccountCtrl'
+            }) 
      
          .otherwise({
-            redirectTo: '../acceuil'
+            templateUrl: '../views/error.html'
             });
  }]);

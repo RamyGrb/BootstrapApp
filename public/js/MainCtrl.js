@@ -4,8 +4,8 @@ function AppCtrl($scope, $http) {
     console.log("controller AppCtrl connected to the app");   
 };
 
-// Contrôleur de l'acceuil //
-function AcceuilCtrl($scope, $http) {  
+// Contrôleur de l'accueil //
+function AccueilCtrl($scope, $http) {  
     // Contrôle //
-    console.log("controller AcceuilCtrl connected to the view Acceuil");
+    console.log("controller AccueilCtrl connected to the view Accueil");
 };
