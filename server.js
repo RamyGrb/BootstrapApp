@@ -29,8 +29,7 @@ console.log("server running on port 3000");
 app.use(cookieParser());
 
 // Connexion à la bdd sur Mlab //
-configDB = module.exports = { 'url' : 'mongodb://billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx' };
-mongoose.connect(configDB.url);
+mongoose.connect('mongodb://billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx');
 
 // Initialisation de Passport //
 require('./public/config/passport')(passport);
@@ -50,7 +49,7 @@ require('./public/config/routes-authentification')(app, passport);
 // Indiquer que nos fichiers se trouvent dans /public //
 app.use(express.static(__dirname + "/public"));
 
-// Connexion à la bdd sur MLab //
+// Connexion à la bdd sur MLab - ici mongojs est plus facile que mongoose //
 var db = mongojs('billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx?authMechanism=SCRAM-SHA-1', ['barlist','drinklist','orderlist']);
 
 require('./public/config/routes-database')(app, db);
