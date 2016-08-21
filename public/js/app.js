@@ -57,5 +57,4 @@ BillyApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "../views/error.html",
         })
     
-    
 });
