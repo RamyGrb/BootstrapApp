@@ -6,175 +6,51 @@ var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
-var mongojs=require('mongojs');
-// Utilisation de la bdd sur MLab //
-var db = mongojs('billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx?authMechanism=SCRAM-SHA-1', ['barlist','drinklist','orderlist'])
-
-var bodyParser = require('body-parser');
-
-// Indiquer que nos fichiers se trouvent dans /public //
-app.use(express.static(__dirname + "/public"));
+var morgan = require('morgan');
+var mongojs = require('mongojs');
+var mongoose = require('mongoose');
 
 // Parse des requêtes, nécessaire pour les requêtes POST //
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Envoyer toutes les requêtes vers la console pour Contrôle //
+app.use(morgan('dev'));
+
+// Port du serveur //
+var port = Number(process.env.PORT || 3000);
+app.listen(port);
+// Contrôle //
+console.log("server running on port 3000");
+
+/////////////// AUTHENTIFICATION //////////////////
 
 // Lire les cookies pour l'authentification //
 app.use(cookieParser());
 
+// Connexion à la bdd sur Mlab //
+configDB = module.exports = { 'url' : 'mongodb://billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx' };
+mongoose.connect(configDB.url);
+
 // Initialisation de Passport //
+require('./public/config/passport')(passport);
 app.use(session({ secret: 'Billy2016' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// Récupération de la database barlist //
-app.get('/barlist', function(req,res) {
-    // Contrôle //
-    console.log("database barlist to send");
-    
-    // Connexion à Mongodb, docs = la database récupérée //
-    db.barlist.find(function(err,docs){
-        
-        // Envoi de la database au controleur //
-        res.json(docs);
-        // Contrôle //
-        console.log("database barlist sent");
-    });
-});
+// Lignes nécessaires pour faire fonctionner le routage serveur //
+app.set('views', __dirname + 'public/views');
+app.set('view engine', 'ejs');
 
-// Récupération de la database drinklist //
-app.get('/drinklist', function(req,res) {
-    // Contrôle //
-    console.log("database drinklist to send");
-    
-    // Connexion à Mongodb, docs = la database récupérée //
-    db.drinklist.find(function(err,docs){
-        
-        // Envoi de la database au controleur //
-        res.json(docs);
-        // Contrôle //
-        console.log("database drinklist sent");        
-    });
-});
+require('./public/config/routes-authentification')(app, passport);
 
-// Récupération de la database orderlist //
-app.get('/orderlist', function(req,res) {
-    // Contrôle //
-    console.log("database orderlist to send");
-    
-    // Connexion à Mongodb, docs = la database récupérée //
-    db.orderlist.find(function(err,docs){
-        
-        // Envoi de la database au controleur //
-        res.json(docs);
-        // Contrôle //
-        console.log("database orderlist sent");        
-    });
-});
+/////////////// DATABASE REQUESTS //////////////////
 
-// Passage d'une commande //
-app.post('/barlist', function(req,res) {
-    
-    var id = req.body.toString();
-    // Contrôle //
-    console.log("command id: " + id + " to send to barlist");
-    
-    // Extraction de la commande à partir de l'id //
-    db.drinklist.findOne({_id: mongojs.ObjectId(id)}, function (err, docDrink) {
-        // Contrôle //
-        console.log("command " + JSON.stringify(docDrink.name + " to send to barlist"));
-        
-        // Génération Numéro de Commande//
-        var numero = Math.floor((Math.random()*1000));
-        
-        // Envoi de la Commande à barlist et orderlist//
-        var commandeBar = {number: numero, drinks: docDrink.name, state: "En attente"};
-        var commandeOrder = commandeBar;
-        
-        db.barlist.insert(commandeBar, function(err,doc) {
-            // Contrôle //
-            console.log("command id: " + id + " sent to barlist");
-            res.json(doc);
-        });
-        db.orderlist.insert(commandeOrder, function(err,doc) {
-            // Contrôle //
-            console.log("command id: " + id + " sent to orderlist");
-        });
-        
-    });    
-});
+// Indiquer que nos fichiers se trouvent dans /public //
+app.use(express.static(__dirname + "/public"));
 
-// Commande prête coté bar //
-app.put('/barlist/:id', function(req,res) {
-    
-    var id = req.params.id;
-    // Contrôle //
-    console.log("command id:" + id + " to update in barlist");
-    
-    // Modification de l'état de la commande
-    db.barlist.findAndModify({
-        query: {_id: mongojs.ObjectId(id)}, 
-        update: {$set: {state: "C'est Prêt"}},
-        new: true
-    }, function(err, doc) {
-        res.json(doc);        
-        // Contrôle //
-        console.log("command #" + doc.number + " updated in barlist");
-    });
-});
+// Connexion à la bdd sur MLab //
+var db = mongojs('billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx?authMechanism=SCRAM-SHA-1', ['barlist','drinklist','orderlist']);
 
-// Commande prête coté client //
-app.put('/orderlist/:id', function(req,res) {
-    
-    var number = req.body.number;
-    // Contrôle //
-    console.log("command #" + number + " to update in orderlist");
-
-    // Modification de l'état de la commande
-    db.orderlist.findAndModify({
-        query: {number: number}, 
-        update: {$set: {state: "C'est Prêt"}},
-        new: true
-    }, function(err, doc) {
-        res.json(doc);        
-        // Contrôle //
-        console.log("command #" + number + " updated in orderlist");
-    });    
-});
-
-// Terminer une commande coté Bar //
-app.delete('/barlist/:id', function(req,res) {
-    
-    var id = req.params.id;
-    // Contrôle //
-    console.log("command id: " + id + " to delete");
-    
-    db.barlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
-        res.json(doc);
-        // Contrôle //
-        console.log("command id: " + id + " deleted")
-    });
-});
-
-// Terminer une commande coté Client //
-app.delete('/orderlist/:id', function(req,res) {
-    
-    var id = req.params.id;
-    // Contrôle //
-    console.log("command #" + id + " to delete");
-    
-    db.orderlist.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
-        res.json(doc);
-        // Contrôle //
-        console.log("command id: " + id + " deleted")        
-    });
-});
-
-// Port du serveur //
-var port = Number(process.env.PORT || 3000);
-app.listen(port);
-
-// Contrôle //
-console.log("server running on port 3000");
-
+require('./public/config/routes-database')(app, db);
