@@ -1,18 +1,32 @@
 // Dépendances //
-var express=require('express');
+var express = require('express');
 var app = express();
+var passport = require('passport');
+var flash = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var mongojs=require('mongojs');
 // Utilisation de la bdd sur MLab //
 var db = mongojs('billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx?authMechanism=SCRAM-SHA-1', ['barlist','drinklist','orderlist'])
 
-var bodyParser=require('body-parser');
+var bodyParser = require('body-parser');
 
 // Indiquer que nos fichiers se trouvent dans /public //
 app.use(express.static(__dirname + "/public"));
 
 // Parse des requêtes, nécessaire pour les requêtes POST //
 app.use(bodyParser.json());
+
+// Lire les cookies pour l'authentification //
+app.use(cookieParser());
+
+// Initialisation de Passport //
+app.use(session({ secret: 'Billy2016' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // Récupération de la database barlist //
 app.get('/barlist', function(req,res) {
