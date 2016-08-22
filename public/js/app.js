@@ -26,12 +26,12 @@ BillyApp.config(function($stateProvider, $urlRouterProvider) {
         .state('home', {
             url: "/home",
             templateUrl: "../views/home.html",
+            controller: "HomeCtrl"
         })
     
         .state('home.accueil', {
             url: "/accueil",
             templateUrl: "../views/accueil.html",
-            controller: "AccueilCtrl"        
         })
     
         .state('home.bar', {

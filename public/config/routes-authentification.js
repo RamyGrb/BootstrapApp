@@ -7,7 +7,7 @@ module.exports = function(app, passport) {
 
     // Inscription //
     app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/#/home',
+        successRedirect : '/home',
         failureRedirect : '/#/signup'
     }));
 
@@ -18,14 +18,22 @@ module.exports = function(app, passport) {
 
     // Connexion //
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/#/home',
+        successRedirect : '/home',
         failureRedirect : '/#/login'
     }));
-
+    
+    // Accueil connecté //
+    app.get('/home', isLoggedIn, function(req,res) {
+        res.render('home.html', {
+            // Informations sur l'utilisateurs transmises //
+            user : req.user
+        });
+    });
+    
     // Rediriger vers le splash s'il n'y a pas de session active //
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated())
             return next();
         res.redirect('/');
-    }    
+    }
 }

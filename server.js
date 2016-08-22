@@ -9,10 +9,14 @@ var session = require('express-session');
 var morgan = require('morgan');
 var mongojs = require('mongojs');
 var mongoose = require('mongoose');
+var mustache = require('mustache-express');
 
 // Parse des requêtes, nécessaire pour les requêtes POST //
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Indiquer que nos fichiers se trouvent dans /public //
+app.use(express.static(__dirname + "/public"));
 
 // Envoyer toutes les requêtes vers la console pour Contrôle //
 app.use(morgan('dev'));
@@ -25,29 +29,26 @@ console.log("server running on port 3000");
 
 /////////////// AUTHENTIFICATION //////////////////
 
-// Lire les cookies pour l'authentification //
-app.use(cookieParser());
-
 // Connexion à la bdd sur Mlab //
 mongoose.connect('mongodb://billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx');
 
 // Initialisation de Passport //
 require('./public/config/passport')(passport);
+
+app.use(cookieParser());
 app.use(session({ secret: 'Billy2016' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// Lignes nécessaires pour faire fonctionner le routage serveur //
-app.set('views', __dirname + 'public/views');
-app.set('view engine', 'ejs');
+// Rendu des .html: nécessaire pour les routes coté serveur //
+app.engine('html', mustache());
+app.set('view engine', 'mustache');
+app.set('views', __dirname + '/public/views');
 
 require('./public/config/routes-authentification')(app, passport);
 
 /////////////// DATABASE REQUESTS //////////////////
-
-// Indiquer que nos fichiers se trouvent dans /public //
-app.use(express.static(__dirname + "/public"));
 
 // Connexion à la bdd sur MLab - ici mongojs est plus facile que mongoose //
 var db = mongojs('billyheroku:billy2016@ds161175.mlab.com:61175/heroku_zphjqtfx?authMechanism=SCRAM-SHA-1', ['barlist','drinklist','orderlist']);
