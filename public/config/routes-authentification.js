@@ -30,7 +30,7 @@ module.exports = function(app, passport) {
     
     // Récupérer les données de l'utilisateur du cookie //
     app.get('/api/user_data', function(req, res) {
-        res.json(req);
+        res.json({user: req.user});
     });   
     
     // Rediriger vers le splash s'il n'y a pas de session active //
