@@ -36,7 +36,10 @@ mongoose.connect('mongodb://billyheroku:billy2016@ds161175.mlab.com:61175/heroku
 require('./public/config/passport')(passport);
 
 app.use(cookieParser());
-app.use(session({ secret: 'Billy2016' }));
+app.use(session({ 
+    secret: 'Billy2016',
+    resave: false,
+    saveUninitialized: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

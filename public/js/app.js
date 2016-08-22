@@ -66,3 +66,7 @@ HomeApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "../views/error.html",
         })        
 });
+
+HomeApp.controller('UserCtrl', ['$scope', '$window', function($scope, $window){
+    $scope.user = $window.user;
+}]);
