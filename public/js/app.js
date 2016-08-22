@@ -1,4 +1,5 @@
 var BillyApp = angular.module('BillyApp', ['ui.router']);
+var HomeApp = angular.module('HomeApp', ['ui.router']);
 
 BillyApp.config(function($stateProvider, $urlRouterProvider) {
 
@@ -6,7 +7,7 @@ BillyApp.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('', '/');
     $urlRouterProvider.otherwise("/error");
 
-    $stateProvider    
+    $stateProvider
 
         .state('splash', {
             url: "/",
@@ -21,40 +22,47 @@ BillyApp.config(function($stateProvider, $urlRouterProvider) {
         .state('signup', {
             url: "/signup",
             templateUrl: "../views/signup.html",
-        })  
-
-        .state('home', {
-            url: "/home",
-            templateUrl: "../views/home.html",
-            controller: "HomeCtrl"
-        })
-    
-        .state('home.accueil', {
-            url: "/accueil",
-            templateUrl: "../views/accueil.html",
-        })
-    
-        .state('home.bar', {
-            url: "/bar",
-            templateUrl: "../views/bar.html",
-            controller: "BarCtrl"        
-        })
-    
-        .state('home.client', {
-            url: "/client",
-            templateUrl: "../views/client.html",
-            controller: "ClientCtrl"
-        })
-    
-        .state('home.account', {
-            url: "/account",
-            templateUrl: "../views/account.html",
-            controller: "AccountCtrl"
         })    
 
         .state('error', {
             url: "/error",
             templateUrl: "../views/error.html",
+        })    
+});
+
+HomeApp.config(function($stateProvider, $urlRouterProvider) {
+
+    // Indique ce qu'on fait en cas de route connue/inconnue //
+    $urlRouterProvider.when('', '/');
+    $urlRouterProvider.otherwise("/error");
+    
+    $stateProvider
+    
+        .state('accueil', {
+            url: "/",
+            templateUrl: "../views/accueil.html",
         })
     
+        .state('bar', {
+            url: "/bar",
+            templateUrl: "../views/bar.html",
+            controller: "BarCtrl"        
+        })
+    
+        .state('client', {
+            url: "/client",
+            templateUrl: "../views/client.html",
+            controller: "ClientCtrl"
+        })
+    
+        .state('account', {
+            url: "/account",
+            templateUrl: "../views/account.html",
+            controller: "AccountCtrl"
+        })
+        
+        .state('error', {
+            url: "/error",
+            templateUrl: "../views/error.html",
+        })        
 });

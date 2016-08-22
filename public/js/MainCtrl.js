@@ -7,7 +7,5 @@ function AppCtrl($scope, $http) {
 // Contrôleur de la page home et donc des 4 vues secondaires //
 function HomeCtrl($scope, $http) {
     // Contrôle //
-    console.log("controller HomeCtrl connected to the view Accueil"); 
-    
-    // Récupération des identifiants //
-}
+    console.log("controller HomeCtrl connected to the view Accueil");
+};
