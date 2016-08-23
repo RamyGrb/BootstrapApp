@@ -113,8 +113,7 @@ module.exports = function(passport) {
                     newUser.facebook.separatedname = profile.name;
                     newUser.facebook.givenName = profile.givenName;
                     newUser.facebook.familyName = profile.familyName;  
-                    newUser.facebook.email = profile.emails[0].value;                                        
-                    
+                    newUser.facebook.email = profile.emails;
 
                     newUser.save(function(err) {
                         // Retourner une erreur en cas d'erreur //
