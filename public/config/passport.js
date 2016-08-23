@@ -1,6 +1,8 @@
 // Chargement dépendances //
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('../models/user');
+var configAuth = require('./auth')
 
 module.exports = function(passport) {
 
@@ -16,7 +18,7 @@ module.exports = function(passport) {
         });
     });
     
-    /////////////// INSCRIPTION //////////////////
+    /////////////// LOCAL INSCRIPTION //////////////////
     
     passport.use('local-signup', new LocalStrategy({
         usernameField : 'email',
@@ -53,7 +55,7 @@ module.exports = function(passport) {
         });
     }));
     
-    /////////////// CONNEXION //////////////////
+    /////////////// LOCAL CONNEXION //////////////////
     
     passport.use('local-login', new LocalStrategy({
             usernameField : 'email',
@@ -80,5 +82,48 @@ module.exports = function(passport) {
                 // Si tout est OK, retourner l'utilisateur //
                 return done(null, user);
             });
-        })); 
+        }));
+    
+    /////////////// FACEBOOK INSCRIPTION/CONNEXION //////////////////
+    
+    passport.use(new FacebookStrategy({
+        clientID : configAuth.facebookAuth.clientID,
+        clientSecret : configAuth.facebookAuth.clientSecret,
+        callbackURL : configAuth.facebookAuth.callbackURL
+    },
+    function(token, refreshToken, profile, done) {
+        // Ligne nécessaire pour faire marcher la vérification avant d'inscrire l'user dans la bdd et pas après //
+        process.nextTick(function() {
+            
+            // Vérification qu'un utilisateur avec ce token n'existe pas déjà //
+            User.findOne({ 'facebook.id' :  profile.id }, function(err, user) {
+                // Retourner une erreur en cas d'erreur //
+                if (err) return done(err);
+
+                // Si l'utilisateur est trouvé, le connecter //
+                if (user) return done(null, user);
+                
+                // Sinon création du nouvel utilisateur //
+                else {
+                    var newUser = new User();
+
+                    newUser.facebook.id = profile.id;
+                    newUser.facebook.token = token;
+                    newUser.facebook.name = profile.displayName;
+                    newUser.facebook.separatedname = profile.name;
+                    newUser.facebook.givenName = profile.givenName;
+                    newUser.facebook.familyName = profile.familyName;  
+                    newUser.facebook.email = profile.emails[0].value;                                        
+                    
+
+                    newUser.save(function(err) {
+                        // Retourner une erreur en cas d'erreur //
+                        if (err)
+                            throw err;
+                        return done(null, newUser);
+                    });
+                }
+            });             
+        })
+    }));
 };

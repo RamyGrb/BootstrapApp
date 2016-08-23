@@ -1,10 +1,12 @@
 module.exports = function(app, passport) {
+    
+    /////////////// LOCAL CONNEXION //////////////////    
 
     // Route de la page d'inscription à faire coté serveur //
     app.get('/signup', function(req, res) {
         res.render('signup.html');
     });
-
+    
     // Inscription //
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/home',
@@ -39,4 +41,22 @@ module.exports = function(app, passport) {
             return next();
         res.redirect('/');
     }
-}
+
+    // Déconnexion //
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+
+    /////////////// FACEBOOK CONNEXION //////////////////
+    
+    // Connexion //
+     app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+    // Callback d'authentification //
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect : '/home',
+            failureRedirect : '/#/login'
+        }));
+};

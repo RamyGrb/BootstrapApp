@@ -1,10 +1,30 @@
-<div class="col-sm-6">
-    <div class="well">
-        <h3><span class="glyphicon glyphicon-user"></span> Local</h3>
-        <p>
-            <strong>id</strong>: {{ user._id }}<br>
-            <strong>email</strong>: {{ user.local.email }}<br>
-            <strong>password</strong>: {{ user.local.password }}
-        </p>
+<div class="row">
+    
+    <!-- Identifiants Local -->
+    <div class="col-sm-6">
+        <div class="well">
+            <h3><span class="glyphicon glyphicon-user"></span> Local</h3>
+            <p>
+                <strong>id</strong>: {{ user._id }}<br>
+                <strong>email</strong>: {{ user.local.email }}<br>
+                <strong>password</strong>: {{ user.local.password }}
+            </p>
+        </div>
     </div>
+
+    <!-- Identifiants Facebook -->
+    <div class="col-sm-6">
+        <div class="well">
+            <h3><span class="glyphicon glyphicon-user"></span> Facebook</h3>
+            <p>
+                <strong>id</strong>: {{ user.facebook.id }}<br>
+                <strong>name</strong>: {{ user.facebook.name }}<br>
+                <strong>givenName</strong>: {{ user.facebook.givenName }}<br>
+                <strong>familyName</strong>: {{ user.facebook.familyName }}<br>                
+                <strong>value</strong>: {{ user.facebook.value }}<br>                                
+                <strong>token</strong>: {{ user.facebook.token }}<br>
+            </p>
+        </div>
+    </div>
+    
 </div>
