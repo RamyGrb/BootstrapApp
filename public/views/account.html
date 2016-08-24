@@ -7,7 +7,9 @@
             <p>
                 <strong>id</strong>: {{ user._id }}<br>
                 <strong>email</strong>: {{ user.local.email }}<br>
-                <strong>password</strong>: {{ user.local.password }}
+                <strong>password</strong>: {{ user.local.password }}<br><br>
+                <a href='connect/local' class="btn btn-default">Lier Local</a>
+                <a href='unlink/local' class="btn btn-default">Délier Local</a>                
             </p>
         </div>
     </div>
@@ -20,9 +22,9 @@
                 <strong>id</strong>: {{ user.facebook.id }}<br>
                 <strong>name</strong>: {{ user.facebook.name }}<br>
                 <strong>givenName</strong>: {{ user.facebook.givenName }}<br>
-                <strong>familyName</strong>: {{ user.facebook.familyName }}<br>                
-                <strong>value</strong>: {{ user.facebook.value }}<br>                                
-                <strong>token</strong>: {{ user.facebook.token }}<br>
+                <strong>familyName</strong>: {{ user.facebook.familyName }}<br>        <strong>value</strong>: {{ user.facebook.value }}<br><strong>token</strong>: {{ user.facebook.token }}<br><br>
+                <a href='connect/facebook' class="btn btn-default">Lier Facebook</a>
+                <a href='unlink/facebook' class="btn btn-default">Délier Facebook</a>
             </p>
         </div>
     </div>

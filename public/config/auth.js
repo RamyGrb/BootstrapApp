@@ -8,10 +8,4 @@ module.exports = {
         'callbackURL' : 'http://localhost:3000/auth/facebook/callback',
         'profileFields' : ["email", "displayName", "familyName", "givenName", "value"]
     },
-
-    'googleAuth' : {
-        'clientID' : 'clientID',
-        'clientSecret' : 'client secret',
-        'callbackURL' : 'adresse de callback'
-    }
 };

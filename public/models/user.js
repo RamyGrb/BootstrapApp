@@ -7,7 +7,7 @@ var userSchema = mongoose.Schema({
 
     local            : {
         email        : String,
-        password     : String,
+        password     : String
     },
     facebook         : {
         id           : String,
@@ -15,12 +15,6 @@ var userSchema = mongoose.Schema({
         email        : String,
         name         : String
     },
-    google           : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
-    }
 });
 
 // Fonction de génération d'un hash de sécurité //
